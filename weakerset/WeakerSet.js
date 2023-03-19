@@ -107,3 +107,5 @@ module.exports = class WeakerSet
         return [...this].map(v => v[1]);
     }
 };
+
+Object.defineProperty(module.exports, Symbol.species, module.exports);
