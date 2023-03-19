@@ -10,5 +10,8 @@
   "license": "Apache 2.0",
   "dependencies": {
     "weakermap": "^0.0.0"
-  }
+  },
+  "files": [
+    "weakerset.js"
+  ]
 }
