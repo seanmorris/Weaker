@@ -1,4 +1,4 @@
-const WeakerMap = require('../weakermap/WeakerMap');
+const WeakerMap = require('weakermap/WeakerMap');
 
 module.exports = class WeakerSet
 {
