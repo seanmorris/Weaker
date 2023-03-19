@@ -134,7 +134,7 @@ for(const key of wm.keys())
 // z
 ```
 
-### WeakerMap.set()
+### WeakerMap.set(key, value)
 
 #### Parameters
 * `key` - The key to set in the map.
