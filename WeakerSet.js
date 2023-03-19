@@ -74,10 +74,10 @@ module.exports = class WeakerSet
     
     entries()
     {
-        return this[Symbol.iterator]();
+        return this;
     }
 
-    forEach()
+    forEach(callback)
     {
         for(const obj of this)
         {
@@ -99,7 +99,7 @@ module.exports = class WeakerSet
     
     keys()
     {
-        return [...this].map(v => v[0]);
+        return this.keys();
     }
     
     values()
