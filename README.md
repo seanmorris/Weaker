@@ -135,6 +135,20 @@ for(const key of wm.keys())
 ```
 
 ### WeakerMap.set()
+
+#### Parameters
+* `key` - The key to set in the map.
+* `value` - The value to set in the map.
+
+#### Returns
+*none*
+
+```javascript
+const wm = new WeakerMap();
+
+wm.set('x', {a:1});
+```
+
 ### WeakerMap.values()
 
 #### Parameters
