@@ -1,0 +1,22 @@
+{
+  "name": "weaker",
+  "version": "0.0.0",
+  "description": "Weaker maps by value, and enumerable weaker sets",
+  "author": "Sean Morris",
+  "scripts": {
+    "test": "node --test weakerset/test.js weakermap/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seanmorris/Weaker.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seanmorris/Weaker/issues"
+  },
+  "homepage": "https://github.com/seanmorris/Weaker#readme",
+  "dependencies": {
+    "weakermap": "^0.0.0",
+    "weakerset": "^0.0.0"
+  }
+}
