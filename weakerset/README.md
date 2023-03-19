@@ -9,7 +9,7 @@ Create a new `WeakerSet` object, optionally prepopulated by `...entries`.
 * `...entries` - A list of objects to add to the map.
 
 #### Returns
-A newly constructed `WeakerMap` object.
+A newly constructed `WeakerSet` object.
 
 ```javascript
 const ws = new WeakerSet({a:1}, {b:2}, {c:3});
@@ -26,7 +26,7 @@ Add an object.
 *none*
 
 ```javascript
-const ws = new WeakerMap();
+const ws = new WeakerSet();
 
 ws.add({a:1});
 ```
@@ -149,9 +149,9 @@ A new Iterator that traverses the `WeakerSet`.
 ```javascript
 const ws = new WeakerSet({a:1}, {b:2}, {c:3});
 
-for(const key of ws.keys())
+for(const value of ws.values())
 {
-    console.log(key);
+    console.log(value);
 }
 // {a:1}
 // {b:2}

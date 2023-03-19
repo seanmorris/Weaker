@@ -79,7 +79,7 @@ module.exports = class WeakerSet
 
     forEach(callback)
     {
-        for(const obj of this)
+        for(const [obj,] of this)
         {
             callback(obj, obj, this);
         }
@@ -99,7 +99,7 @@ module.exports = class WeakerSet
     
     keys()
     {
-        return this.keys();
+        return this.values();
     }
     
     values()

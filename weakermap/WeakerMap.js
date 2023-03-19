@@ -75,7 +75,7 @@ module.exports = class WeakerMap
             return;
         }
 
-        this.map.get(key).deref();
+        return this.map.get(key).deref();
     }
 
     has(key)
@@ -107,7 +107,7 @@ module.exports = class WeakerMap
 
     values()
     {
-        return this.map.values();
+        return [...this.map.values()].map(v => v.deref());
     }
 };
 
