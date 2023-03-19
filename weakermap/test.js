@@ -4,7 +4,7 @@ const WeakerMap = require('./WeakerMap');
 
 test('Check the code from the README', () => {
 
-	test('### WeakerSet.construct(...entries)', () => {
+	test('### WeakerMap.construct(...entries)', () => {
 		const wm = new WeakerMap(['x', {a:1}], ['y', {b:2}], ['z', {c:3}]);
 
 		assert.ok(wm instanceof WeakerMap);
@@ -113,3 +113,50 @@ test('Check the code from the README', () => {
 		}
 	});
 });
+
+{
+	const keep = [];
+	const wm = new WeakerMap;
+
+	const gcTest = test('Check that GCed values are removed', t => {
+		{
+			let a = {a:1};
+			let b = {b:2};
+			let c = {c:3};
+			let d = {d:4};
+			let e = {e:5};
+
+			[ ['a',a], ['b',b], ['c',c], ['d',d], ['e',e] ].forEach(e => wm.set(...e));
+
+			keep.push(b,c,d);
+		}
+	});
+
+	gcTest.then(() => {
+		const lastTest = () => test(`Ensure memory isn\'t leaking.`, t => {
+
+			let x = 'x';
+
+			if(global.gc)
+			{
+				global.gc();
+			}
+			else
+			{
+				for(let i = 0; i < 10**6; i++)
+				{
+					x += 'x';
+				}
+
+			}
+
+			for(const [k,v] of wm)
+			{
+			}
+
+			assert.strictEqual(wm.size, 3);
+		});
+
+		setTimeout(lastTest, 150);
+	});
+}

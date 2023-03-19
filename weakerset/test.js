@@ -109,3 +109,50 @@ test('Check the code from the README', () => {
         }        
     });    
 });
+
+{
+    const keep = [];
+    const ws = new WeakerSet;
+
+    const gcTest = test('Check that GCed values are removed', t => {
+        {
+            let a = {a:1};
+            let b = {b:2};
+            let c = {c:3};
+            let d = {d:4};
+            let e = {e:5};
+
+            [ a, b, c, d, e ].forEach(e => ws.add(e));
+
+            keep.push(b,c,d);
+        }
+    });
+
+    gcTest.then(() => {
+        const lastTest = () => test(`Ensure memory isn\'t leaking.`, t => {
+
+            let x = 'x';
+
+            if(global.gc)
+            {
+                global.gc();
+            }
+            else
+            {
+                for(let i = 0; i < 10**6; i++)
+                {
+                    x += 'x';
+                }
+
+            }
+
+            for(const v of ws)
+            {
+            }
+
+            assert.strictEqual(ws.size, 3);
+        });
+
+        setTimeout(lastTest, 150);
+    });
+}
