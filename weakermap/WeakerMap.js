@@ -3,9 +3,9 @@ module.exports = class WeakerMap
 	registry = new FinalizationRegistry(held => this.delete(held));
 	map = new Map;
 
-	constructor(...entries)
+	constructor(entries)
 	{
-		entries.forEach(([key, value]) => this.set(key, value));
+		entries && entries.forEach(([key, value]) => this.set(key, value));
 	}
 
 	get size()

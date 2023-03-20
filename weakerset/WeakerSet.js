@@ -6,9 +6,9 @@ module.exports = class WeakerSet
 	weakMap = new WeakMap;
 	map = new WeakerMap;
 
-	constructor(...entries)
+	constructor(entries)
 	{
-		entries.forEach((obj) => this.add(obj));
+		entries && entries.forEach((obj) => this.add(obj));
 	}
 
 	get size()
@@ -72,7 +72,7 @@ module.exports = class WeakerSet
 						continue;
 					}
 
-					return {done: false, value: [value,value]};
+					return {done: false, value: value};
 
 				} while(true);
 			}
@@ -86,10 +86,7 @@ module.exports = class WeakerSet
 
 	forEach(callback)
 	{
-		for(const [obj,] of this)
-		{
-			callback(obj, obj, this);
-		}
+		this.map.forEach((value, key, set) => callback(value, key, set));
 	}
 
 	has(obj)
@@ -111,7 +108,7 @@ module.exports = class WeakerSet
 
 	values()
 	{
-		return [...this].map(v => v[1]);
+		return [...this];
 	}
 };
 

@@ -5,7 +5,7 @@
   "author": "Sean Morris",
   "entrypoint": "index.js",
   "scripts": {
-    "test": "node --expose-gc weakerset/test.js weakermap/test.js"
+    "test": "node --expose-gc weakerset/test.js && node --expose-gc weakermap/test.js"
   },
   "repository": {
     "type": "git",

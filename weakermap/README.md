@@ -53,17 +53,17 @@ setTimeout(printRemaining, 500);
 
 ## Methods
 
-### WeakerMap.construct(...entries)
-Create a new `WeakMap` object, optionally prepopulated by `...entries`.
+### WeakerMap.construct(entries)
+Create a new `WeakMap` object, optionally prepopulated by `entries`.
 
 #### Parameters
-* `...entries` - A list of `[key, value]` pairs to add to the map.
+* `...entries` - An iterable list of `[key, value]` pairs to add to the map.
 
 #### Returns
 A newly constructed `WeakerMap` object.
 
 ```javascript
-const wm = new WeakerMap(['x', {a:1}], ['y', {b:2}], ['z', {c:3}]);
+const wm = new WeakerMap([ ['x', {a:1}], ['y', {b:2}], ['z', {c:3}] ]);
 ```
 ### \[Symbol.iterator]()
 Traverse the entries.
@@ -75,13 +75,18 @@ Traverse the entries.
 A new Iterator that traverses the `WeakerSet`.
 
 ```javascript
-const wm = new WeakerMap(['a', {a:1}], ['b', {b:2}], ['c', {c:3}]);
+const wm = new WeakerMap([ ['a', {a:1}], ['b', {b:2}], ['c', {c:3}] ]);
 
 for(const [key, value] of wm)
 {
     console.log({key, value});
 }
+// { key: 'a', value: { a: 1 } }
+// { key: 'b', value: { b: 2 } }
+// { key: 'c', value: { c: 3 } }
 ```
+
+
 
 ### WeakerMap.clear()
 Clear all entries.
@@ -93,7 +98,7 @@ Clear all entries.
 *none*
 
 ```javascript
-const wm = new WeakerMap(['x', {a:1}], ['y', {b:2}], ['z', {c:3}]);
+const wm = new WeakerMap([ ['x', {a:1}], ['y', {b:2}], ['z', {c:3}] ]);
 
 wm.clear();
 
@@ -110,7 +115,7 @@ Delete a key.
 *none*
 
 ```javascript
-const wm = new WeakerMap(['x', {a:1}], ['y', {b:2}], ['z', {c:3}]);
+const wm = new WeakerMap([ ['x', {a:1}], ['y', {b:2}], ['z', {c:3}] ]);
 
 wm.delete('y');
 ```
@@ -125,7 +130,7 @@ Traverse all entries.
 A new Iterator that traverses the `WeakerMap`.
 
 ```javascript
-const wm = new WeakerMap(['x', {a:1}], ['y', {b:2}], ['z', {c:3}]);
+const wm = new WeakerMap([ ['x', {a:1}], ['y', {b:2}], ['z', {c:3}] ]);
 
 for(const [key, value] of wm.entries())
 {
@@ -143,7 +148,7 @@ Traverse all entries with a callback.
 *none*
 
 ```javascript
-const wm = new WeakerMap(['x', {a:1}], ['y', {b:2}], ['z', {c:3}]);
+const wm = new WeakerMap([ ['x', {a:1}], ['y', {b:2}], ['z', {c:3}] ]);
 
 wm.forEach((value, key, set) => {
     console.log({value, key});
@@ -160,7 +165,7 @@ Get the value for a key.
 The object found at `key`, or `undefined` if not found.
 
 ```javascript
-const wm = new WeakerMap(['x', {a:1}], ['y', {b:2}], ['z', {c:3}]);
+const wm = new WeakerMap([ ['x', {a:1}], ['y', {b:2}], ['z', {c:3}] ]);
 
 wm.get('x'); // {a:1}
 ```
@@ -175,7 +180,7 @@ Check for the presence of a key.
 `true` if the object at `key` is present, or `false` if not found.
 
 ```javascript
-const wm = new WeakerMap(['x', {a:1}], ['y', {b:2}], ['z', {c:3}]);
+const wm = new WeakerMap([ ['x', {a:1}], ['y', {b:2}], ['z', {c:3}] ]);
 
 wm.has('x'); // true
 wm.has('g'); // false
@@ -191,7 +196,7 @@ Traverse all keys.
 A new Iterator that traverses the keys of the `WeakerMap`.
 
 ```javascript
-const wm = new WeakerMap(['x', {a:1}], ['y', {b:2}], ['z', {c:3}]);
+const wm = new WeakerMap([ ['x', {a:1}], ['y', {b:2}], ['z', {c:3}] ]);
 
 for(const key of wm.keys())
 {
@@ -213,7 +218,7 @@ Set a key.
 *none*
 
 ```javascript
-const wm = new WeakerMap();
+const wm = new WeakerMap;
 
 wm.set('x', {a:1});
 ```
@@ -228,7 +233,7 @@ Traverse all values.
 A new Iterator that traverses the values of the `WeakerMap`.
 
 ```javascript
-const wm = new WeakerMap(['x', {a:1}], ['y', {b:2}], ['z', {c:3}]);
+const wm = new WeakerMap([ ['x', {a:1}], ['y', {b:2}], ['z', {c:3}] ]);
 
 for(const value of wm.values())
 {

@@ -53,17 +53,17 @@ setTimeout(printRemaining, 500);
 
 ## Methods
 
-### WeakerSet.construct(...entries)
-Create a new `WeakerSet` object, optionally prepopulated by `...entries`.
+### WeakerSet.construct(entries)
+Create a new `WeakerSet` object, optionally prepopulated by `entries`.
 
 #### Parameters
-* `...entries` - A list of objects to add to the map.
+* `...entries` - An iterable list of objects to add to the set.
 
 #### Returns
 A newly constructed `WeakerSet` object.
 
 ```javascript
-const ws = new WeakerSet({a:1}, {b:2}, {c:3});
+const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);
 ```
 
 ### \[Symbol.iterator]()
@@ -76,12 +76,22 @@ Traverse the entries.
 A new Iterator that traverses the `WeakerSet`.
 
 ```javascript
-const ws = new WeakerSet({a:1}, {b:2}, {c:3});
+const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);
 
 for(const [entry] of ws)
 {
     console.log(entry);
 }
+// { a: 1 }
+// { b: 2 }
+// { c: 3 }
+```
+
+```javascript
+const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);
+const ar = [...ws];
+
+console.log(ar);
 ```
 
 ### WeakerSet.add(obj)
@@ -95,7 +105,7 @@ Add an object.
 *none*
 
 ```javascript
-const ws = new WeakerSet();
+const ws = new WeakerSet;
 
 ws.add({a:1});
 ```
@@ -104,7 +114,7 @@ ws.add({a:1});
 Clear the `WeakerSet`.
 
 ```javascript
-const ws = new WeakerSet({a:1}, {b:2}, {c:3});
+const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);
 
 ws.clear();
 
@@ -125,7 +135,7 @@ const a = {a:1};
 const b = {b:2};
 const c = {c:3};
 
-const ws = new WeakerSet(a, b, c);
+const ws = new WeakerSet([ a, b, c ]);
 
 ws.delete(b);
 ```
@@ -140,7 +150,7 @@ Traverse all entries.
 A new Iterator that traverses the `WeakerSet`.
 
 ```javascript
-const ws = new WeakerSet({a:1}, {b:2}, {c:3});
+const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);
 
 for(const [key, value] of ws.entries())
 {
@@ -158,7 +168,7 @@ Traverse all entries with a callback.
 *none*
 
 ```javascript
-const ws = new WeakerSet({a:1}, {b:2}, {c:3});
+const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);
 
 ws.forEach((value, key, set) => {
     console.log({value, key});
@@ -179,7 +189,7 @@ const a = {a:1};
 const b = {b:2};
 const c = {c:3};
 
-const ws = new WeakerSet(a, b, c);
+const ws = new WeakerSet([ a, b, c ]);
 
 ws.has(b); // true
 ws.has(g); // false
@@ -195,7 +205,7 @@ Traverse all keys.
 A new Iterator that traverses the `WeakerSet`.
 
 ```javascript
-const ws = new WeakerSet({a:1}, {b:2}, {c:3});
+const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);
 
 for(const key of ws.keys())
 {
@@ -216,7 +226,7 @@ Traverse all values.
 A new Iterator that traverses the `WeakerSet`.
 
 ```javascript
-const ws = new WeakerSet({a:1}, {b:2}, {c:3});
+const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);
 
 for(const value of ws.values())
 {

@@ -42,7 +42,7 @@ const retain  = [];
 {
 	let a = {a:1}, b = {b:2}, c = {c:3};
 
-	[ ['a',a], ['b',b], ['c',c] ].forEach(e => wm.set(...e));
+	[ ['a', a], ['b', b], ['c', c] ].forEach(e => wm.set(...e));
 
 	retain.push(b,c);
 };
