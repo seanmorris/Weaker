@@ -66,7 +66,7 @@ A newly constructed `WeakerSet` object.
 const ws = new WeakerSet({a:1}, {b:2}, {c:3});
 ```
 
-### [Symbol.iterator]()
+### \[Symbol.iterator]()
 Traverse the entries.
 
 #### Parameters

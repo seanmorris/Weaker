@@ -65,7 +65,7 @@ A newly constructed `WeakerMap` object.
 ```javascript
 const wm = new WeakerMap(['x', {a:1}], ['y', {b:2}], ['z', {c:3}]);
 ```
-### [Symbol.iterator]()
+### \[Symbol.iterator]()
 Traverse the entries.
 
 #### Parameters
