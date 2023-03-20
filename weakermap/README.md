@@ -2,7 +2,7 @@
 
 *A WeakerMap is an enumerable Map with with weak values rather than keys.*
 
-This class implements a pattern similar to the 'WeakMap', however its *values* are weakly referenced, rather than the keys. This allows for enumeration, clearing and arbitrarily valued keys, and adds the limitation that the *values* must be objects.
+This class implements a pattern similar to the 'WeakMap', however its *values* are weakly referenced, rather than the keys. This allows for enumeration, clearing and arbitrarily valued keys, with the limitation that the *values* must be objects.
 
 ## Install
 ```bash
