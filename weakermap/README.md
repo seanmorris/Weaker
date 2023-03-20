@@ -54,7 +54,7 @@ setTimeout(printRemaining, 500);
 ## Methods
 
 ### WeakerMap.construct(entries)
-Create a new `WeakMap` object, optionally prepopulated by `entries`.
+Create a new `WeakerMap` object, optionally prepopulated by `entries`.
 
 #### Parameters
 * `...entries` - An iterable list of `[key, value]` pairs to add to the map.
