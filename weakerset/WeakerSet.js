@@ -18,6 +18,11 @@ module.exports = class WeakerSet
 
 	add(obj)
 	{
+		if(typeof obj !== 'function' && typeof obj !== 'object')
+		{
+			throw new Error('WeakerSet values must be objects.');
+		}
+
 		const keyObj = Object.create(null);
 
 		this.registry.register(obj, keyObj);
@@ -76,7 +81,7 @@ module.exports = class WeakerSet
 
 	entries()
 	{
-		return this;
+		return {[Symbol.iterator]: () => this[Symbol.iterator]()};
 	}
 
 	forEach(callback)

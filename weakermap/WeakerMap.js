@@ -44,7 +44,6 @@ module.exports = class WeakerMap
 
 					if(!value)
 					{
-						console.trace({key, value});
 						this.map.delete(key);
 						continue;
 					}
@@ -58,7 +57,7 @@ module.exports = class WeakerMap
 
 	entries()
 	{
-		return this;
+		return {[Symbol.iterator]: () => this[Symbol.iterator]()};
 	}
 
 	forEach(callback)
@@ -103,6 +102,11 @@ module.exports = class WeakerMap
 
 	set(key, value)
 	{
+		if(typeof value !== 'function' && typeof value !== 'object')
+		{
+			throw new Error('WeakerMap values must be objects.');
+		}
+
 		if(this.map.has(key))
 		{
 			this.registry.unregister(this.get(key));
