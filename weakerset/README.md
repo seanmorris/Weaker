@@ -92,6 +92,16 @@ const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);
 const ar = [...ws];
 
 console.log(ar);
+//[ { a: 1 }, { b: 2 }, { c: 3 } ]
+```
+
+```javascript
+const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);
+
+[...ws].map( entry => console.log( entry ));
+// { a: 1 }
+// { b: 2 }
+// { c: 3 }
 ```
 
 ### WeakerSet.add(obj)

@@ -86,7 +86,22 @@ for(const [key, value] of wm)
 // { key: 'c', value: { c: 3 } }
 ```
 
+```javascript
+const wm = new Map([['a', {a:1}], ['b', {b:2}], ['c', {c:3}]]);
+const ar = [...wm];
+console.log(ar);
+// [ [ 'a', { a: 1 } ], [ 'b', { b: 2 } ], [ 'c', { c: 3 } ] ]
+```
 
+```javascript
+const wm = new Map([['a', {a:1}], ['b', {b:2}], ['c', {c:3}]]);
+
+[...wm].map( ( [key, value] ) => console.log( {key, value} ));
+
+// { key: 'a', value: { a: 1 } }
+// { key: 'b', value: { b: 2 } }
+// { key: 'c', value: { c: 3 } }
+```
 
 ### WeakerMap.clear()
 Clear all entries.
