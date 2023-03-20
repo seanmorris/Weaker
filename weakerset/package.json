@@ -16,6 +16,8 @@
 		"weakermap": "^0.0.2"
 	},
 	"files": [
-		"weakerset.js"
+		"LICENSE",
+		"NOTICE",
+		"WeakerSet.js"
 	]
 }
