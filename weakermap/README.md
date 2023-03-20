@@ -32,8 +32,6 @@ const retain  = [];
 	retain.push(b,c);
 };
 
-let i = 0;
-
 const printRemaining = () => {
 	retain;       // keep refs in-scope
 	global.gc();  // force the garbage collector
