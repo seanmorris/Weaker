@@ -129,15 +129,8 @@ test('Check the code from the README', () => {
 	};
 
 	const lastTest = (wm) => test(`Ensure memory isn\'t leaking.`, t => {
-
-		let x = 'x';
-		for(let i = 0; i < 10**6; i++)
-		{
-			x += 'x';
-		}
-
+		global.gc();
 		setTimeout(() => assert.strictEqual(wm.size, 3), 100);
-
 	});
 
 	setTimeout(() => lastTest(wm), 500);

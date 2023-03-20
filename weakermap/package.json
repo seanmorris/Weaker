@@ -5,7 +5,7 @@
 	"description": "A WeakerMap is an enumerable Map with with weak values rather than keys",
 	"main": "WeakerMap.js",
 	"scripts": {
-		"test": "node --test test.js"
+		"test": "node --test --expose-gc test.js"
 	},
 	"license": "Apache 2.0",
 	"files": [

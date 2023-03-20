@@ -5,7 +5,7 @@
 	"description": "A WeakerSet an enumerable WeakSet",
 	"main": "WeakerSet.js",
 	"scripts": {
-		"test": "node --test test.js"
+		"test": "node --test --expose-gc test.js"
 	},
 	"license": "Apache 2.0",
 	"dependencies": {
