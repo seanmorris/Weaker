@@ -57,7 +57,7 @@ setTimeout(printRemaining, 500);
 Create a new `WeakerMap` object, optionally prepopulated by `entries`.
 
 #### Parameters
-* `...entries` - An iterable list of `[key, value]` pairs to add to the map.
+* `entries` - An iterable list of `[key, value]` pairs to add to the map.
 
 #### Returns
 A newly constructed `WeakerMap` object.

@@ -57,7 +57,7 @@ setTimeout(printRemaining, 500);
 Create a new `WeakerSet` object, optionally prepopulated by `entries`.
 
 #### Parameters
-* `...entries` - An iterable list of objects to add to the set.
+* `entries` - An iterable list of objects to add to the set.
 
 #### Returns
 A newly constructed `WeakerSet` object.
