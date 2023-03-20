@@ -1,5 +1,7 @@
 # WeakerSet
 
+[![CI test status](https://github.com/seanmorris/weaker/actions/workflows/test.yaml/badge.svg)](https://github.com/seanmorris/Weaker/actions)
+
 *Like WeakSets, but enumerable, and clearable.*
 
 This class implements a pattern similar to the `WeakSet`, but allows for enumeration and clearing. Ironically, the implementation depends on a `WeakerMap` and a `WeakMap` in tandem, managing a group of `WeakRefs`. Note that elements may not be garbage collected immediately upon leaving a given scope, however this should not have an impact on memory, since the memory will not be freed until the garbage collector runs, with or without the `WeakerSet`. See [MDN's notes on WeakRefs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakRef#notes_on_weakrefs) for more info.
@@ -19,7 +21,7 @@ A `WeakerSet` will only hold onto its values as long as they aren't garbage coll
 *NOTE*: The following example makes use of `global.gc()` to force garbage collection to run regardless of existing heuristics. This requires node to be run with the `--expose-gc` flag. This is not necessary except to demonstrate the behavior in a short script, where the garbage collector would not normally run until the program exits.
 
 ```javascript
-const WeakerSet = require('./index').WeakerSet;
+const WeakerSet = require('weakermap/WeakerSet');
 
 const ws = new WeakerSet;
 const retain  = [];

@@ -1,5 +1,7 @@
 # WeakerMap
 
+[![CI test status](https://github.com/seanmorris/weaker/actions/workflows/test.yaml/badge.svg)](https://github.com/seanmorris/Weaker/actions)
+
 *A WeakerMap is an enumerable Map with with weak values rather than keys.*
 
 This class implements a pattern similar to the 'WeakMap', however its *values* are weakly referenced, rather than the keys. This allows for enumeration, clearing and arbitrarily valued keys, with the limitation that the *values* must be objects. Note that elements may not be garbage collected immediately upon leaving a given scope, however this should not have an impact on memory, since the memory will not be freed until the garbage collector runs, with or without the `WeakerSet`. See [MDN's notes on WeakRefs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakRef#notes_on_weakrefs) for more info.
@@ -10,7 +12,7 @@ npm install weakermap
 ```
 
 ```javascript
-const WeakerMap = require('weakermap/WeakerSet');
+const WeakerMap = require('weakermap/WeakerMap');
 ```
 
 ## Example
@@ -19,7 +21,7 @@ A `WeakerMap` will only hold onto its values as long as they aren't garbage coll
 *NOTE*: The following example makes use of `global.gc()` to force garbage collection to run regardless of existing heuristics. This requires node to be run with the `--expose-gc` flag. This is not necessary except to demonstrate the behavior in a short script, where the garbage collector would not normally run until the program exits.
 
 ```javascript
-const WeakerMap = require('./index').WeakerMap;
+const WeakerMap = require('weakermap/WeakerMap');
 
 const wm = new WeakerMap;
 const retain  = [];
