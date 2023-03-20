@@ -15,42 +15,6 @@ npm install weakermap
 const WeakerMap = require('weakermap');
 ```
 
-## Example
-A `WeakerMap` will only hold onto its values as long as they aren't garbage collected. Once that happens they will be removed without any furter intervention from the programmer.
-
-*NOTE*: The following example makes use of `global.gc()` to force garbage collection to run regardless of existing heuristics. This requires node to be run with the `--expose-gc` flag. This is not necessary except to demonstrate the behavior in a short script, where the garbage collector would not normally run until the program exits.
-
-```javascript
-const WeakerMap = require('weakermap');
-
-const wm = new WeakerMap;
-const retain  = [];
-
-{
-	let a = {a:1}, b = {b:2}, c = {c:3};
-
-	[ ['a',a], ['b',b], ['c',c] ].forEach(e => wm.set(...e));
-
-	retain.push(b,c);
-};
-
-const printRemaining = () => {
-	retain;       // keep refs in-scope
-	global.gc();  // force the garbage collector
-	console.log(wm.values());
-};
-
-printRemaining();
-// The garbage collector hasn't run yet,
-// So we still have all three refs
-// [ { a: 1 }, { b: 2 }, { c: 3 } ]
-
-setTimeout(printRemaining, 500);
-// Once we swap to a new 'job', it can run
-// and we only have two objects now:
-// [ { b: 2 }, { c: 3 } ]
-```
-
 ## Methods
 
 ### WeakerMap.construct(entries)
@@ -257,4 +221,40 @@ for(const value of wm.values())
 // {a:1}
 // {b:2}
 // {c:3}
+```
+
+## Example
+A `WeakerMap` will only hold onto its values as long as they aren't garbage collected. Once that happens they will be removed without any furter intervention from the programmer.
+
+*NOTE*: The following example makes use of `global.gc()` to force garbage collection to run regardless of existing heuristics. This requires node to be run with the `--expose-gc` flag. This is not necessary except to demonstrate the behavior in a short script, where the garbage collector would not normally run until the program exits.
+
+```javascript
+const WeakerMap = require('weakermap');
+
+const wm = new WeakerMap;
+const retain  = [];
+
+{
+	let a = {a:1}, b = {b:2}, c = {c:3};
+
+	[ ['a',a], ['b',b], ['c',c] ].forEach(e => wm.set(...e));
+
+	retain.push(b,c);
+};
+
+const printRemaining = () => {
+	retain;       // keep refs in-scope
+	global.gc();  // force the garbage collector
+	console.log(wm.values());
+};
+
+printRemaining();
+// The garbage collector hasn't run yet,
+// So we still have all three refs
+// [ { a: 1 }, { b: 2 }, { c: 3 } ]
+
+setTimeout(printRemaining, 500);
+// Once we swap to a new 'job', it can run
+// and we only have two objects now:
+// [ { b: 2 }, { c: 3 } ]
 ```

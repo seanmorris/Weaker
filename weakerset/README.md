@@ -15,42 +15,6 @@ npm install weakerset
 const WeakerSet = require('weakerset');
 ```
 
-## Example
-A `WeakerSet` will only hold onto its values as long as they aren't garbage collected. Once that happens they will be removed without any furter intervention from the programmer.
-
-*NOTE*: The following example makes use of `global.gc()` to force garbage collection to run regardless of existing heuristics. This requires node to be run with the `--expose-gc` flag. This is not necessary except to demonstrate the behavior in a short script, where the garbage collector would not normally run until the program exits.
-
-```javascript
-const WeakerSet = require('weakerset');
-
-const ws = new WeakerSet;
-const retain  = [];
-
-{
-	let a = {a:1}, b = {b:2}, c = {c:3};
-
-	[ a, b, c ].forEach(e => ws.add(e));
-
-	retain.push(b,c);
-};
-
-const printRemaining = () => {
-	retain;       // keep refs in-scope
-	global.gc();  // force the garbage collector
-	console.log(ws.values());
-};
-
-printRemaining();
-// The garbage collector hasn't run yet,
-// So we still have all three refs
-// [ { a: 1 }, { b: 2 }, { c: 3 } ]
-
-setTimeout(printRemaining, 500);
-// Once we swap to a new 'job', it can run
-// and we only have two objects now:
-// [ { b: 2 }, { c: 3 } ]
-```
-
 ## Methods
 
 ### WeakerSet.construct(entries)
@@ -245,4 +209,40 @@ for(const value of ws.values())
 // {a:1}
 // {b:2}
 // {c:3}
+```
+
+## Example
+A `WeakerSet` will only hold onto its values as long as they aren't garbage collected. Once that happens they will be removed without any furter intervention from the programmer.
+
+*NOTE*: The following example makes use of `global.gc()` to force garbage collection to run regardless of existing heuristics. This requires node to be run with the `--expose-gc` flag. This is not necessary except to demonstrate the behavior in a short script, where the garbage collector would not normally run until the program exits.
+
+```javascript
+const WeakerSet = require('weakerset');
+
+const ws = new WeakerSet;
+const retain  = [];
+
+{
+	let a = {a:1}, b = {b:2}, c = {c:3};
+
+	[ a, b, c ].forEach(e => ws.add(e));
+
+	retain.push(b,c);
+};
+
+const printRemaining = () => {
+	retain;       // keep refs in-scope
+	global.gc();  // force the garbage collector
+	console.log(ws.values());
+};
+
+printRemaining();
+// The garbage collector hasn't run yet,
+// So we still have all three refs
+// [ { a: 1 }, { b: 2 }, { c: 3 } ]
+
+setTimeout(printRemaining, 500);
+// Once we swap to a new 'job', it can run
+// and we only have two objects now:
+// [ { b: 2 }, { c: 3 } ]
 ```
