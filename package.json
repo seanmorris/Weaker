@@ -4,7 +4,7 @@
   "description": "Weaker maps by value, and enumerable weaker sets",
   "author": "Sean Morris",
   "scripts": {
-    "test": "node --test --expose-gc weakerset/test.js weakermap/test.js"
+    "test": "node --expose-gc weakerset/test.js weakermap/test.js"
   },
   "repository": {
     "type": "git",
