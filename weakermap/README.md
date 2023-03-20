@@ -2,7 +2,7 @@
 
 *A WeakerMap is an enumerable Map with with weak values rather than keys.*
 
-This class implements a pattern similar to the 'WeakMap', however its *values* are weakly referenced, rather than the keys. This allows for enumeration, clearing and arbitrarily valued keys, with the limitation that the *values* must be objects.
+This class implements a pattern similar to the 'WeakMap', however its *values* are weakly referenced, rather than the keys. This allows for enumeration, clearing and arbitrarily valued keys, with the limitation that the *values* must be objects. Note that elements may not be garbage collected immediately upon leaving a given scope, however this should not have an impact on memory, and the memory will not be freed until the garbage collector runs, with or without the `WeakerSet`. See [MDN's notes on WeakRefs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakRef#notes_on_weakrefs) for more info.
 
 ## Install
 ```bash
@@ -10,7 +10,45 @@ npm install weakermap
 ```
 
 ```javascript
-const WeakerMap = require('weakermap/WeakerMap');
+const WeakerMap = require('weakermap/WeakerSet');
+```
+
+## Example
+A `WeakerMap` will only hold onto its values as long as they aren't garbage collected. Once that happens they will be removed without any furter intervention from the programmer.
+
+*NOTE*: The following example makes use of `global.gc()` to force garbage collection to run regardless of existing heuristics. This requires node to be run with the `--expose-gc` flag.
+
+```javascript
+const WeakerMap = require('./index').WeakerMap;
+
+const wm = new WeakerMap;
+const retain  = [];
+
+{
+	let a = {a:1}, b = {b:2}, c = {c:3};
+
+	[ ['a',a], ['b',b], ['c',c] ].forEach(e => wm.set(...e));
+
+	retain.push(b,c);
+};
+
+let i = 0;
+
+const printRemaining = () => {
+	retain;       // keep refs in-scope
+	global.gc();  // force the garbage collector
+	console.log(wm.values());
+};
+
+printRemaining();
+// The garbage collector hasn't run yet,
+// So we still have all three refs
+// [ { a: 1 }, { b: 2 }, { c: 3 } ]
+
+setTimeout(printRemaining, 500);
+// Once we swap to a new 'job', it can run
+// and we only have two objects now:
+// [ { b: 2 }, { c: 3 } ]
 ```
 
 ## Methods

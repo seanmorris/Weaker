@@ -10,7 +10,45 @@ npm install weakerset
 ```
 
 ```javascript
-const WeakerMap = require('weakermap/WeakerSet');
+const WeakerSet = require('weakermap/WeakerSet');
+```
+
+## Example
+A `WeakerSet` will only hold onto its values as long as they aren't garbage collected. Once that happens they will be removed without any furter intervention from the programmer.
+
+*NOTE*: The following example makes use of `global.gc()` to force garbage collection to run regardless of existing heuristics. This requires node to be run with the `--expose-gc` flag.
+
+```javascript
+const WeakerSet = require('./index').WeakerSet;
+
+const ws = new WeakerSet;
+const retain  = [];
+
+{
+	let a = {a:1}, b = {b:2}, c = {c:3};
+
+	[ a, b, c ].forEach(e => ws.add(e));
+
+	retain.push(b,c);
+};
+
+let i = 0;
+
+const printRemaining = () => {
+	retain;       // keep refs in-scope
+	global.gc();  // force the garbage collector
+	console.log(ws.values());
+};
+
+printRemaining();
+// The garbage collector hasn't run yet,
+// So we still have all three refs
+// [ { a: 1 }, { b: 2 }, { c: 3 } ]
+
+setTimeout(printRemaining, 500);
+// Once we swap to a new 'job', it can run
+// and we only have two objects now:
+// [ { b: 2 }, { c: 3 } ]
 ```
 
 ## Methods
