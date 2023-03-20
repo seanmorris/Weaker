@@ -118,8 +118,8 @@ test('Check the code from the README', () => {
 	const keep = [];
 	const wm = new WeakerMap;
 
-	const gcTest = test('Check that GCed values are removed', t => {
-		{
+	{
+		setTimeout(() => {
 			let a = {a:1};
 			let b = {b:2};
 			let c = {c:3};
@@ -129,34 +129,20 @@ test('Check the code from the README', () => {
 			[ ['a',a], ['b',b], ['c',c], ['d',d], ['e',e] ].forEach(e => wm.set(...e));
 
 			keep.push(b,c,d);
+		}, 20);
+	};
+
+	const lastTest = (wm) => test(`Ensure memory isn\'t leaking.`, t => {
+
+		let x = 'x';
+		for(let i = 0; i < 10**6; i++)
+		{
+			x += 'x';
 		}
+
+		setTimeout(() => assert.strictEqual(wm.size, 3), 0);
+
 	});
 
-	gcTest.then(() => {
-		const lastTest = () => test(`Ensure memory isn\'t leaking.`, t => {
-
-			let x = 'x';
-
-			if(global.gc)
-			{
-				global.gc();
-			}
-			else
-			{
-				for(let i = 0; i < 10**6; i++)
-				{
-					x += 'x';
-				}
-
-			}
-
-			for(const [k,v] of wm)
-			{
-			}
-
-			assert.strictEqual(wm.size, 3);
-		});
-
-		setTimeout(lastTest, 150);
-	});
+	setTimeout(() => lastTest(wm), 500);
 }

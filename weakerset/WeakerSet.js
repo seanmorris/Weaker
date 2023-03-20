@@ -2,110 +2,112 @@ const WeakerMap = require('weakermap/WeakerMap');
 
 module.exports = class WeakerSet
 {
-    weakMap = new WeakMap;
-    map = new WeakerMap;
+	registry = new FinalizationRegistry(held => this.delete(this.map.get(held)));
+	weakMap = new WeakMap;
+	map = new WeakerMap;
 
-    constructor(...entries)
-    {
-        entries.forEach((obj) => this.add(obj));
-    }
+	constructor(...entries)
+	{
+		entries.forEach((obj) => this.add(obj));
+	}
 
-    get size()
-    {
-        return this.map.size;
-    }
+	get size()
+	{
+		return this.map.size;
+	}
 
-    add(obj)
-    {
-        const keyObj = Object.create(null);
+	add(obj)
+	{
+		const keyObj = Object.create(null);
 
-        this.weakMap.set(obj, keyObj);
-        this.map.set(keyObj, obj);
-    }
+		this.registry.register(obj, keyObj);
+		this.weakMap.set(obj, keyObj);
+		this.map.set(keyObj, obj);
+	}
 
-    clear()
-    {
-        this.weakMap = new WeakMap;
-        this.map.clear();
-    }
+	clear()
+	{
+		this.weakMap = new WeakMap;
+		this.map.clear();
+	}
 
-    delete(obj)
-    {
-        if(!this.weakMap.has(obj))
-        {
-            return;
-        }
+	delete(obj)
+	{
+		if(!this.weakMap.has(obj))
+		{
+			return;
+		}
 
-        const keyObj = this.weakMap.get(obj);
+		const keyObj = this.weakMap.get(obj);
 
-        this.map.delete(keyObj);
-    }
-    
-    [Symbol.iterator]()
-    {
-        const mapIterator = this.map[Symbol.iterator]();
-        
-        return {
-            next() {
-                let entry, key, ref, value;
-                
-                do
-                {
-                    entry = mapIterator.next();
+		this.weakMap.delete(obj);
+		this.map.delete(keyObj);
+	}
 
-                    if(entry.done)
-                    {
-                        return entry;
-                    }
+	[Symbol.iterator]()
+	{
+		const mapIterator = this.map[Symbol.iterator]();
 
-                    [key, value] = entry.value;
+		return {
+			next: () => {
+				do
+				{
+					const entry = mapIterator.next();
 
-                    if(!value)
-                    {
-                        this.map.delete(key);
-                    }
-                    
-                } while(!value);
+					if(entry.done)
+					{
+						return {done:true};
+					}
 
-                return {done: false, value: [value,value]};
-            }
-        };
-    }
-    
-    entries()
-    {
-        return this;
-    }
+					const [key, value] = entry.value;
 
-    forEach(callback)
-    {
-        for(const [obj,] of this)
-        {
-            callback(obj, obj, this);
-        }
-    }
-    
-    has(obj)
-    {
-        if(!this.weakMap.has(obj))
-        {
-            return false;
-        }
+					if(!value)
+					{
+						this.map.delete(key);
+						continue;
+					}
 
-        const keyObj = this.weakMap.get(obj);
+					return {done: false, value: [value,value]};
 
-        return this.map.has(keyObj);
-    }
-    
-    keys()
-    {
-        return this.values();
-    }
-    
-    values()
-    {
-        return [...this].map(v => v[1]);
-    }
+				} while(true);
+			}
+		};
+	}
+
+	entries()
+	{
+		return this;
+	}
+
+	forEach(callback)
+	{
+		for(const [obj,] of this)
+		{
+			callback(obj, obj, this);
+		}
+	}
+
+	has(obj)
+	{
+		if(!this.weakMap.has(obj))
+		{
+			return false;
+		}
+
+		const keyObj = this.weakMap.get(obj);
+
+		return this.map.has(keyObj);
+	}
+
+	keys()
+	{
+		return this.values();
+	}
+
+	values()
+	{
+		return [...this].map(v => v[1]);
+	}
 };
 
 Object.defineProperty(module.exports, Symbol.species, module.exports);

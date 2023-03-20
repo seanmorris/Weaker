@@ -1,17 +1,17 @@
 {
-  "name": "weakerset",
-  "version": "0.0.0",
-  "author": "Sean Morris",
-  "description": "A WeakerSet an enumerable WeakSet",
-  "main": "WeakerSet.js",
-  "scripts": {
-    "test": "node --test test.js"
-  },
-  "license": "Apache 2.0",
-  "dependencies": {
-    "weakermap": "^0.0.0"
-  },
-  "files": [
-    "weakerset.js"
-  ]
+	"name": "weakerset",
+	"version": "0.0.0",
+	"author": "Sean Morris",
+	"description": "A WeakerSet an enumerable WeakSet",
+	"main": "WeakerSet.js",
+	"scripts": {
+		"test": "node --test test.js"
+	},
+	"license": "Apache 2.0",
+	"dependencies": {
+		"weakermap": "^0.0.0"
+	},
+	"files": [
+		"weakerset.js"
+	]
 }

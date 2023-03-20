@@ -1,11 +1,14 @@
 {
-  "name": "weakermap",
-  "version": "0.0.0",
-  "author": "Sean Morris",
-  "description": "A WeakerMap is an enumerable Map with with weak values rather than keys",
-  "main": "WeakerMap.js",
-  "scripts": {
-    "test": "node --test test.js"
-  },
-  "license": "Apache 2.0"
+	"name": "weakermap",
+	"version": "0.0.0",
+	"author": "Sean Morris",
+	"description": "A WeakerMap is an enumerable Map with with weak values rather than keys",
+	"main": "WeakerMap.js",
+	"scripts": {
+		"test": "node --test test.js"
+	},
+	"license": "Apache 2.0",
+	"files": [
+		"weakermap.js"
+	]
 }

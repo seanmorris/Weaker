@@ -1,114 +1,122 @@
 module.exports = class WeakerMap
 {
-    map = new Map;
+	registry = new FinalizationRegistry(held => this.delete(held));
+	map = new Map;
 
-    constructor(...entries)
-    {
-        entries.forEach(([key, value]) => this.set(key, value));
-    }
+	constructor(...entries)
+	{
+		entries.forEach(([key, value]) => this.set(key, value));
+	}
 
-    get size()
-    {
-        return this.map.size;
-    }
+	get size()
+	{
+		return this.map.size;
+	}
 
-    clear()
-    {
-        this.map.clear();
-    }
+	clear()
+	{
+		this.map.clear();
+	}
 
-    delete(key)
-    {
-        this.map.delete(key);
-    }
+	delete(key)
+	{
+		this.map.delete(key);
+	}
 
-    [Symbol.iterator]()
-    {
-        const mapIterator = this.map[Symbol.iterator]();
-        
-        return {
-            next: () => {
-                let entry, key, ref, value;
-                
-                do
-                {
-                    entry = mapIterator.next();
+	[Symbol.iterator]()
+	{
+		const mapIterator = this.map[Symbol.iterator]();
 
-                    if(entry.done)
-                    {
-                        return entry;
-                    }
+		return {
+			next: () => {
+				do
+				{
+					const entry = mapIterator.next();
 
-                    [key, ref] = entry.value;
-    
-                    value = ref.deref();
+					if(entry.done)
+					{
+						return {done:true};
+					}
 
-                    if(!value)
-                    {
-                        this.map.delete(key);
-                    }
-                    
-                } while(!value);
+					const [key, ref] = entry.value;
 
-                return {done: false, value: [key, value]};
-            }
-        };
-    }
+					const value = ref.deref();
 
-    entries()
-    {
-        return this;
-    }
+					if(!value)
+					{
+						console.trace({key, value});
+						this.map.delete(key);
+						continue;
+					}
 
-    forEach(callback)
-    {
-        for(const [k,v] of this)
-        {
-            callback(v, k, this);
-        }
-    }
+					return {done: false, value: [key, value]};
 
-    get(key)
-    {
-        if(!this.has(key))
-        {
-            return;
-        }
+				} while(true);
+			}
+		};
+	}
 
-        return this.map.get(key).deref();
-    }
+	entries()
+	{
+		return this;
+	}
 
-    has(key)
-    {
-        if(!this.map.has(key))
-        {
-            return false;
-        }
+	forEach(callback)
+	{
+		for(const [k,v] of this)
+		{
+			callback(v, k, this);
+		}
+	}
 
-        const result = this.map.get(key).deref();
+	get(key)
+	{
+		if(!this.has(key))
+		{
+			return;
+		}
 
-        if(!result)
-        {
-            this.map.delete(key);
-        }
+		return this.map.get(key).deref();
+	}
 
-        return result;
-    }
+	has(key)
+	{
+		if(!this.map.has(key))
+		{
+			return false;
+		}
 
-    keys()
-    {
-        return this.map.keys();
-    }
+		const result = this.map.get(key).deref();
 
-    set(key, value)
-    {
-        return this.map.set(key, new WeakRef(value));
-    }
+		if(!result)
+		{
+			this.map.delete(key);
+		}
 
-    values()
-    {
-        return [...this.map.values()].map(v => v.deref());
-    }
+		return result;
+	}
+
+	keys()
+	{
+		return [...this].map(v => v[0]);
+	}
+
+	set(key, value)
+	{
+		if(this.map.has(key))
+		{
+			this.registry.unregister(this.get(key));
+		}
+
+		this.registry.register(value, key, value);
+
+		return this.map.set(key, new WeakRef(value));
+	}
+
+	values()
+	{
+		return [...this].map(v => v[1]);
+	}
 };
 
 Object.defineProperty(module.exports, Symbol.species, module.exports);
