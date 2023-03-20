@@ -1,6 +1,6 @@
 {
   "name": "weaker",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Weaker maps by value, and enumerable weaker sets",
   "author": "Sean Morris",
   "scripts": {
@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/seanmorris/Weaker#readme",
   "dependencies": {
-    "weakermap": "^0.0.0",
-    "weakerset": "^0.0.0"
+    "weakermap": "^0.0.1",
+    "weakerset": "^0.0.1"
   }
 }
