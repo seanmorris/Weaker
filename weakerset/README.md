@@ -1,6 +1,19 @@
 # WeakerSet
 
-*A WeakerSet an enumerable WeakSet*
+*Like WeakSets, but enumerable, and clearable.*
+
+This class implements a pattern similar to the `WeakSet`, but allows for enumeration and clearing. Ironically, the implementation depends on a `WeakerMap` and a `WeakMap` in tandem, managing a group of `WeakRefs`. Note that elements may not be garbage collected immediately upon leaving a given scope, however this should not have an impact on memory, and the memory will not be freed until the garbage collector runs, with or without the `WeakerSet`. See [MDN's notes on WeakRefs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakRef#notes_on_weakrefs) for more info.
+
+## Install
+```bash
+npm install weakerset
+```
+
+```javascript
+const WeakerMap = require('weakermap/WeakerSet');
+```
+
+## Methods
 
 ### WeakerSet.construct(...entries)
 Create a new `WeakerSet` object, optionally prepopulated by `...entries`.
