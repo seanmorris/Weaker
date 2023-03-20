@@ -6,11 +6,8 @@
 
 *WeakerSet are like WeakSets, but enumerable, and clearable.*
 
-[WeakerMap](https://github.com/seanmorris/Weaker/tree/master/weakermap)
-
-[WeakerSet](https://github.com/seanmorris/Weaker/tree/master/weakerset)
-
 ## Install
+### Both
 ```bash
 npm install weaker
 ```
@@ -20,7 +17,25 @@ const WeakerMap = require('weaker/WeakerMap');
 const WeakerSet = require('weaker/WeakerSet');
 ```
 
+### One or the other
+```bash
+npm install weakermap
+npm install weakerset
+```
+
+```javascript
+const WeakerMap = require('weakermap');
+const WeakerSet = require('weakerset');
+```
+
 ## About
+
+### Docs
+
+[WeakerMap](https://github.com/seanmorris/Weaker/tree/master/weakermap)
+
+[WeakerSet](https://github.com/seanmorris/Weaker/tree/master/weakerset)
+
 ### WeakerMap
 This class implements a pattern similar to the 'WeakMap', however its *values* are weakly referenced, rather than the keys. This allows for enumeration, clearing and arbitrarily valued keys, with the limitation that the *values* must be objects. Note that elements may not be garbage collected immediately upon leaving a given scope, however this should not have an impact on memory, since the memory will not be freed until the garbage collector runs, with or without the `WeakerMap`. See [MDN's notes on WeakRefs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakRef#notes_on_weakrefs) for more info.
 
@@ -34,7 +49,7 @@ A `WeakerMap` will only hold onto its values as long as they aren't garbage coll
 *NOTE*: The following example makes use of `global.gc()` to force garbage collection to run regardless of existing heuristics. This requires node to be run with the `--expose-gc` flag. This is not necessary except to demonstrate the behavior in a short script, where the garbage collector would not normally run until the program exits.
 
 ```javascript
-const WeakerMap = require('weakermap/WeakerMap');
+const WeakerMap = require('weaker/WeakerMap');
 
 const wm = new WeakerMap;
 const retain  = [];
@@ -70,7 +85,7 @@ A `WeakerSet` will only hold onto its values as long as they aren't garbage coll
 *NOTE*: The following example makes use of `global.gc()` to force garbage collection to run regardless of existing heuristics. This requires node to be run with the `--expose-gc` flag. This is not necessary except to demonstrate the behavior in a short script, where the garbage collector would not normally run until the program exits.
 
 ```javascript
-const WeakerSet = require('weakermap/WeakerSet');
+const WeakerSet = require('weaker/WeakerSet');
 
 const ws = new WeakerSet;
 const retain  = [];

@@ -12,7 +12,7 @@ npm install weakermap
 ```
 
 ```javascript
-const WeakerMap = require('weakermap/WeakerMap');
+const WeakerMap = require('weakermap');
 ```
 
 ## Example
@@ -21,7 +21,7 @@ A `WeakerMap` will only hold onto its values as long as they aren't garbage coll
 *NOTE*: The following example makes use of `global.gc()` to force garbage collection to run regardless of existing heuristics. This requires node to be run with the `--expose-gc` flag. This is not necessary except to demonstrate the behavior in a short script, where the garbage collector would not normally run until the program exits.
 
 ```javascript
-const WeakerMap = require('weakermap/WeakerMap');
+const WeakerMap = require('weakermap');
 
 const wm = new WeakerMap;
 const retain  = [];

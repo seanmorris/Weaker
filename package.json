@@ -3,7 +3,6 @@
   "version": "0.0.2",
   "description": "Weaker maps by value, and enumerable weaker sets",
   "author": "Sean Morris",
-  "entrypoint": "index.js",
   "scripts": {
     "test": "node --expose-gc weakerset/test.js && node --expose-gc weakermap/test.js"
   },
