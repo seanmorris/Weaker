@@ -16,8 +16,8 @@
 	},
 	"homepage": "https://github.com/seanmorris/Weaker#readme",
 	"dependencies": {
-		"weakermap": "^0.0.2",
-		"weakerset": "^0.0.2"
+		"weakermap": "^0.0.3",
+		"weakerset": "^0.0.3"
 	},
 	"files": [
 		"LICENSE",

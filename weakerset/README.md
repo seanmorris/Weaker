@@ -44,7 +44,7 @@ const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);
 
 for(const [entry] of ws)
 {
-    console.log(entry);
+	console.log(entry);
 }
 // { a: 1 }
 // { b: 2 }

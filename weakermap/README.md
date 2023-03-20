@@ -43,7 +43,7 @@ const wm = new WeakerMap([ ['a', {a:1}], ['b', {b:2}], ['c', {c:3}] ]);
 
 for(const [key, value] of wm)
 {
-    console.log({key, value});
+	console.log({key, value});
 }
 // { key: 'a', value: { a: 1 } }
 // { key: 'b', value: { b: 2 } }
