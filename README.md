@@ -2,7 +2,9 @@
 
 [![CI test status](https://github.com/seanmorris/weaker/actions/workflows/test.yaml/badge.svg)](https://github.com/seanmorris/Weaker/actions)
 
-*Weak maps by value and weaker, enumerable, sets*
+*WeakerMaps are enumerable Maps with with weak values rather than keys.*
+
+*WeakerSet are like WeakSets, but enumerable, and clearable.*
 
 [WeakerMap](https://github.com/seanmorris/Weaker/tree/master/weakermap)
 
