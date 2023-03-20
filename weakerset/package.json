@@ -13,7 +13,7 @@
 	},
 	"license": "Apache 2.0",
 	"dependencies": {
-		"weakermap": "^0.0.2"
+		"weakermap": "^0.0.3"
 	},
 	"files": [
 		"LICENSE",
