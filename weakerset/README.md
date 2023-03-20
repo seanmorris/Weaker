@@ -66,6 +66,24 @@ A newly constructed `WeakerSet` object.
 const ws = new WeakerSet({a:1}, {b:2}, {c:3});
 ```
 
+### [Symbol.iterator]()
+Traverse the entries.
+
+#### Parameters
+*none*
+
+#### Returns
+A new Iterator that traverses the `WeakerSet`.
+
+```javascript
+const ws = new WeakerSet({a:1}, {b:2}, {c:3});
+
+for(const [entry] of ws)
+{
+    console.log(entry);
+}
+```
+
 ### WeakerSet.add(obj)
 Add an object.
 

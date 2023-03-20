@@ -65,6 +65,23 @@ A newly constructed `WeakerMap` object.
 ```javascript
 const wm = new WeakerMap(['x', {a:1}], ['y', {b:2}], ['z', {c:3}]);
 ```
+### [Symbol.iterator]()
+Traverse the entries.
+
+#### Parameters
+*none*
+
+#### Returns
+A new Iterator that traverses the `WeakerSet`.
+
+```javascript
+const wm = new WeakerMap(['a', {a:1}], ['b', {b:2}], ['c', {c:3}]);
+
+for(const [key, value] of wm)
+{
+    console.log({key, value});
+}
+```
 
 ### WeakerMap.clear()
 Clear all entries.
