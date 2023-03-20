@@ -1,6 +1,6 @@
 {
 	"name": "weaker",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Weaker maps by value, and enumerable weaker sets",
 	"author": "Sean Morris",
 	"scripts": {
