@@ -1,6 +1,6 @@
 # Weaker.js
 
-[!CI test status](https://github.com/seanmorris/weaker/actions/workflows/test.yaml/badge.svg)
+![CI test status](https://github.com/seanmorris/weaker/actions/workflows/test.yaml/badge.svg)
 
 *Weak maps by value and weaker, enumerable, sets*
 
