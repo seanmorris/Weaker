@@ -1,11 +1,11 @@
 {
 	"name": "weakerset",
-	"version": "0.0.3",
+	"version": "0.0.5",
 	"author": "Sean Morris",
 	"description": "A WeakerSet an enumerable WeakSet",
-	"main": "WeakerSet.js",
+	"main": "WeakerSet.mjs",
 	"scripts": {
-		"test": "node --test --expose-gc test.js"
+		"test": "node --test --expose-gc test.mjs"
 	},
 	"repository": {
 		"type": "git",
@@ -13,11 +13,12 @@
 	},
 	"license": "Apache 2.0",
 	"dependencies": {
-		"weakermap": "^0.0.3"
+		"weakermap": "^0.0.4"
 	},
 	"files": [
+		"WeakerSet.mjs",
+		"README.md",
 		"LICENSE",
-		"NOTICE",
-		"WeakerSet.js"
+		"NOTICE"
 	]
 }

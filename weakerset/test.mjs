@@ -1,6 +1,6 @@
-const test = require('node:test');
-const assert = require('node:assert/strict');
-const WeakerSet = require('./WeakerSet');
+import { test }  from  'node:test';
+import assert  from  'node:assert';
+import { WeakerSet }  from  './WeakerSet.mjs';
 
 test('### WeakerSet.construct(...entries)', () => {
 	const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);

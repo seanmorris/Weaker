@@ -1,6 +1,6 @@
-const WeakerMap = require('weakermap/WeakerMap');
+import { WeakerMap } from 'weakermap/WeakerMap.mjs';
 
-module.exports = class WeakerSet
+export class WeakerSet
 {
 	registry = new FinalizationRegistry(held => this.delete(this.map.get(held)));
 	weakMap = new WeakMap;
@@ -112,4 +112,4 @@ module.exports = class WeakerSet
 	}
 };
 
-Object.defineProperty(module.exports, Symbol.species, module.exports);
+Object.defineProperty(WeakerMap, Symbol.species, WeakerMap);

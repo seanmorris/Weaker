@@ -13,8 +13,7 @@ npm install weaker
 ```
 
 ```javascript
-const WeakerMap = require('weaker/WeakerMap');
-const WeakerSet = require('weaker/WeakerSet');
+import { WeakerMap } from 'weaker';
 ```
 
 ### One or the other
@@ -24,8 +23,8 @@ npm install weakerset
 ```
 
 ```javascript
-const WeakerMap = require('weakermap');
-const WeakerSet = require('weakerset');
+import { WeakerMap } from 'weakermap';
+import { WeakerSet } from 'weakerset';
 ```
 
 ## About
@@ -49,7 +48,7 @@ A `WeakerMap` will only hold onto its values as long as they aren't garbage coll
 *NOTE*: The following example makes use of `global.gc()` to force garbage collection to run regardless of existing heuristics. This requires node to be run with the `--expose-gc` flag. This is not necessary except to demonstrate the behavior in a short script, where the garbage collector would not normally run until the program exits.
 
 ```javascript
-const WeakerMap = require('weaker/WeakerMap');
+import { WeakerMap } from 'weaker/WeakerMmap';
 
 const wm = new WeakerMap;
 const retain  = [];
@@ -85,7 +84,7 @@ A `WeakerSet` will only hold onto its values as long as they aren't garbage coll
 *NOTE*: The following example makes use of `global.gc()` to force garbage collection to run regardless of existing heuristics. This requires node to be run with the `--expose-gc` flag. This is not necessary except to demonstrate the behavior in a short script, where the garbage collector would not normally run until the program exits.
 
 ```javascript
-const WeakerSet = require('weaker/WeakerSet');
+import { WeakerSet } from 'weakerset';
 
 const ws = new WeakerSet;
 const retain  = [];

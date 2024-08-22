@@ -1,6 +1,6 @@
-const test = require('node:test');
-const assert = require('node:assert/strict');
-const WeakerMap = require('./WeakerMap');
+import { test }  from  'node:test';
+import assert  from  'node:assert';
+import { WeakerMap }  from  './WeakerMap.mjs';
 
 test('### WeakerMap.construct(...entries)', () => {
 	const wm = new WeakerMap([ ['x', {a:1}], ['y', {b:2}], ['z', {c:3}] ]);

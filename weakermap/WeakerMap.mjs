@@ -1,4 +1,4 @@
-module.exports = class WeakerMap
+export class WeakerMap
 {
 	registry = new FinalizationRegistry(held => this.delete(held));
 	map = new Map;
@@ -123,4 +123,4 @@ module.exports = class WeakerMap
 	}
 };
 
-Object.defineProperty(module.exports, Symbol.species, module.exports);
+Object.defineProperty(WeakerMap, Symbol.species, WeakerMap);
