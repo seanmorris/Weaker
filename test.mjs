@@ -20,3 +20,13 @@ test('Import WeakerSet from specific file', async () => {
 	const { WeakerSet } = await import("./WeakerSet.mjs");
 	assert.ok(WeakerSet.name === 'WeakerSet');
 });
+
+test('Import WeakerMap from node_modules', async () => {
+	const { WeakerMap } = await import("weakermap/WeakerMap.mjs");
+	assert.ok(WeakerMap.name === 'WeakerMap');
+});
+
+test('Import WeakerSet from node_modules, specific file', async () => {
+	const { WeakerSet } = await import("weakerset/WeakerSet.mjs");
+	assert.ok(WeakerSet.name === 'WeakerSet');
+});
