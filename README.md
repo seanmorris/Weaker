@@ -13,7 +13,7 @@ npm install weaker
 ```
 
 ```javascript
-import { WeakerMap } from 'weaker';
+import { WeakerMap, WeakerSet } from 'weaker';
 ```
 
 ### One or the other
