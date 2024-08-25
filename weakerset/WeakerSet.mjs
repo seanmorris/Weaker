@@ -72,7 +72,7 @@ export class WeakerSet
 						continue;
 					}
 
-					return {done: false, value: value};
+					return {done: false, value};
 
 				} while(true);
 			}
@@ -81,12 +81,33 @@ export class WeakerSet
 
 	entries()
 	{
-		return {[Symbol.iterator]: () => this[Symbol.iterator]()};
+		// return {[Symbol.iterator]: () => this[Symbol.iterator]()};
+
+		const setIterator = this[Symbol.iterator]();
+
+		return { [Symbol.iterator]() { return {
+			next: () => {
+				do
+				{
+					const entry = setIterator.next();
+
+					if(entry.done)
+					{
+						return {done:true};
+					}
+
+					const value = entry.value;
+
+					return {done: false, value: [value, value]};
+
+				} while(true);
+			}
+		}}};
 	}
 
 	forEach(callback)
 	{
-		this.map.forEach((value, key, set) => callback(value, key, set));
+		this.map.forEach((value, key, set) => callback(value, value, set));
 	}
 
 	has(obj)

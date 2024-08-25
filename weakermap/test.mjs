@@ -70,8 +70,8 @@ test('### WeakerMap.get(key)', () => {
 test('### WeakerMap.has(callback)', () => {
 	const wm = new WeakerMap([ ['x', {a:1}], ['y', {b:2}], ['z', {c:3}] ]);
 
-	assert.ok(wm.has('x'));
-	assert.ok(!wm.has('g'));
+	assert.strictEqual(wm.has('x'), true);
+	assert.strictEqual(wm.has('g'), false);
 });
 
 test('### WeakerMap.keys()', () => {

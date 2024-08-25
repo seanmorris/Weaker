@@ -5,7 +5,7 @@ import { WeakerSet }  from  './WeakerSet.mjs';
 test('### WeakerSet.construct(...entries)', () => {
 	const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);
 
-	assert.ok(ws instanceof WeakerSet);
+	assert.strictEqual(ws instanceof WeakerSet, true);
 });
 
 test('### WeakerSet.add(obj)', () => {
@@ -14,7 +14,7 @@ test('### WeakerSet.add(obj)', () => {
 	const a = {a:1};
 
 	ws.add(a);
-	assert.ok(ws.has(a));
+	assert.strictEqual(ws.has(a), true);
 });
 
 test('### WeakerSet.clear()', () => {
@@ -43,12 +43,13 @@ test('### WeakerSet.entries()', () => {
 
 	const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);
 
-	for(const entry of ws.entries())
+	for(const [key, value] of ws.entries())
 	{
 		const s = subs.shift();
 		const v = vals.shift();
 
-		assert.strictEqual(entry[s], v);
+		assert.strictEqual(value[s], v);
+		assert.strictEqual(key[s], v);
 	}
 });
 
@@ -62,7 +63,8 @@ test('### WeakerSet.forEach()', () => {
 		const s = subs.shift();
 		const v = vals.shift();
 
-		assert.ok(value[s], v);
+		assert.strictEqual(value[s], v);
+		assert.strictEqual(key[s], v);
 	});
 });
 
@@ -74,8 +76,8 @@ test('### WeakerSet.has()', () => {
 
 	const ws = new WeakerSet([ a, b, c ]);
 
-	assert.ok(ws.has(b)); // true
-	assert.ok(!ws.has(g)); // false
+	assert.strictEqual(ws.has(b), true); // true
+	assert.strictEqual(ws.has(g), false); // false
 });
 
 test('### WeakerSet.keys()', () => {

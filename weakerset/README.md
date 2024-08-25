@@ -42,9 +42,9 @@ A new Iterator that traverses the `WeakerSet`.
 ```javascript
 const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);
 
-for(const [entry] of ws)
+for(const entry of ws)
 {
-	console.log(entry);
+    console.log(entry);
 }
 // { a: 1 }
 // { b: 2 }
@@ -56,7 +56,11 @@ const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);
 const ar = [...ws];
 
 console.log(ar);
-//[ { a: 1 }, { b: 2 }, { c: 3 } ]
+// [
+//     { a: 1 },
+//     { b: 2 },
+//     { c: 3 }
+// ]
 ```
 
 ```javascript
@@ -72,8 +76,7 @@ const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);
 Add an object.
 
 #### Parameters
-* `key` - The key to set in the map.
-* `value` - The value to set in the map.
+* `obj` - The object to add to the set.
 
 #### Returns
 *none*
@@ -96,10 +99,10 @@ console.log( ws.size ); // 0
 ```
 
 ### WeakerSet.delete(obj)
-Delete a key.
+Delete an object from the set.
 
 #### Parameters
-* `key` - The key to delete from the map.
+* `obj` - The object to delete from the set.
 
 #### Returns
 *none*
@@ -121,7 +124,7 @@ Traverse all entries.
 *none*
 
 #### Returns
-A new Iterator that traverses the `WeakerSet`.
+A new Iterator that traverses the `WeakerSet`. Each entry is a pair `[key, value]` where both `key` and `value` are the same object.
 
 ```javascript
 const ws = new WeakerSet([ {a:1}, {b:2}, {c:3} ]);
@@ -130,6 +133,9 @@ for(const [key, value] of ws.entries())
 {
     console.log({key, value});
 }
+// {key: {a: 1}, value: {a: 1}}
+// {key: {b: 1}, value: {b: 1}}
+// {key: {c: 1}, value: {c: 1}}
 ```
 
 ### WeakerSet.forEach()
@@ -153,10 +159,10 @@ ws.forEach((value, key, set) => {
 Check for the presence of a key.
 
 #### Parameters
-* `key` - The key to look up in the map.
+* `obj` - The object to look up in the set.
 
 #### Returns
-`true` if the object at `key` is present, or `false` if not found.
+`true` if the object `obj` is present, or `false` if not found.
 
 ```javascript
 const a = {a:1};
@@ -165,12 +171,12 @@ const c = {c:3};
 
 const ws = new WeakerSet([ a, b, c ]);
 
-ws.has(b); // true
-ws.has(g); // false
+console.log( ws.has(b) ); // true
+console.log( ws.has(g) ); // false
 ```
 
 ### WeakerSet.keys()
-Traverse all keys.
+Traverse all values (keys are not explicitly stored, so `keys()` returns the same thing as `values()`).
 
 #### Parameters
 *none*
@@ -212,9 +218,9 @@ for(const value of ws.values())
 ```
 
 ## Example
-A `WeakerSet` will only hold onto its values as long as they aren't garbage collected. Once that happens they will be removed without any furter intervention from the programmer.
+A `WeakerSet` will only hold onto its values as long as they aren't garbage collected. Once that happens, they will be removed without any further intervention from the programmer.
 
-*NOTE*: The following example makes use of `global.gc()` to force garbage collection to run regardless of existing heuristics. This requires node to be run with the `--expose-gc` flag. This is not necessary except to demonstrate the behavior in a short script, where the garbage collector would not normally run until the program exits.
+⚠️ *NOTE* ⚠️: The following example makes use of `global.gc()` to force garbage collection to run regardless of existing heuristics. This requires node to be run with the `--expose-gc` flag. This is not necessary except to demonstrate the behavior in a short script, where the garbage collector would not normally run until the program exits.
 
 ```javascript
 import { WeakerSet } from 'weakerset';
@@ -223,26 +229,34 @@ const ws = new WeakerSet;
 const retain  = [];
 
 {
-	let a = {a:1}, b = {b:2}, c = {c:3};
+    let a = {a:1}, b = {b:2}, c = {c:3};
 
-	[ a, b, c ].forEach(e => ws.add(e));
+    [ a, b, c ].forEach(e => ws.add(e));
 
-	retain.push(b,c);
+    retain.push(b,c);
 };
 
 const printRemaining = () => {
-	retain;       // keep refs in-scope
-	global.gc();  // force the garbage collector
-	console.log(ws.values());
+    retain;       // keep refs in-scope
+    global.gc();  // force the garbage collector
+    console.log(ws.values());
 };
 
 printRemaining();
 // The garbage collector hasn't run yet,
-// So we still have all three refs
+// so we still have all three refs
 // [ { a: 1 }, { b: 2 }, { c: 3 } ]
 
 setTimeout(printRemaining, 500);
 // Once we swap to a new 'job', it can run
-// and we only have two objects now:
+// and we only have two objects now
 // [ { b: 2 }, { c: 3 } ]
 ```
+
+# 🍻 Licensed under the Apache License, Version 2.0
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.

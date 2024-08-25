@@ -1,6 +1,6 @@
 {
 	"name": "weakermap",
-	"version": "0.0.5",
+	"version": "0.0.7",
 	"author": "Sean Morris",
 	"description": "A WeakerMap is an enumerable Map with with weak values rather than keys",
 	"main": "WeakerMap.mjs",

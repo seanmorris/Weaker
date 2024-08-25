@@ -92,7 +92,7 @@ export class WeakerMap
 			this.map.delete(key);
 		}
 
-		return result;
+		return Boolean(result);
 	}
 
 	keys()
