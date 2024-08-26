@@ -1,6 +1,6 @@
 {
 	"name": "weakerset",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"author": "Sean Morris",
 	"description": "A WeakerSet an enumerable WeakSet",
 	"main": "WeakerSet.mjs",
@@ -13,7 +13,7 @@
 	},
 	"license": "Apache 2.0",
 	"dependencies": {
-		"weakermap": "^0.0.4"
+		"weakermap": "0.0.8"
 	},
 	"files": [
 		"WeakerSet.mjs",
