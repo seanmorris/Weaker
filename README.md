@@ -1,4 +1,4 @@
-# Weaker.js
+# Weaker
 
 [![CI test status](https://github.com/seanmorris/weaker/actions/workflows/test.yaml/badge.svg)](https://github.com/seanmorris/Weaker/actions)
 
@@ -44,6 +44,64 @@ This class implements a pattern similar to the `WeakSet`, but allows for enumera
 ## Examples
 ### WeakerMap
 A `WeakerMap` will only hold onto its values as long as they aren't garbage collected. Once that happens, they will be removed without any further intervention from the programmer.
+
+#### Cache Example
+
+A `WeakerMap` can be used to cache `fetch()` requests by URL:
+
+```javascript
+import { WeakerMap } from 'weakermap';
+
+const cache = new WeakerMap();
+
+async function fetchWithCache(url) {
+    // Check if the response is already in the cache
+    if (cache.has(url)) {
+        console.log('Cache hit for:', url);
+        return cache.get(url);
+    }
+
+    console.log('Cache miss for:', url);
+
+    // Fetch the data and store it in the cache
+    const response = await fetch(url);
+    const data = await response.json();
+
+    // Store the fetched data in the cache
+    cache.set(url, data);
+
+    return data;
+}
+
+// Example usage
+(async () => {
+    try {
+        const url1 = 'https://jsonplaceholder.typicode.com/todos/1';
+        const url2 = 'https://jsonplaceholder.typicode.com/todos/2';
+
+        // Fetch data with caching
+        console.time('Request 1');
+        const data1 = await fetchWithCache(url1);
+        console.log('Data from url1:', data1);
+        console.timeEnd('Request 1');
+
+        console.time('Request 2');
+        const data2 = await fetchWithCache(url2);
+        console.log('Data from url2:', data2);
+        console.timeEnd('Request 2');
+
+        // Fetch again to demonstrate cache hit
+        console.time('Request 3');
+        const data1Again = await fetchWithCache(url1);
+        console.log('Data from url1 again:', data1Again);
+        console.timeEnd('Request 3');
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+})();
+```
+
+#### Memory Usage:
 
 ⚠️ *NOTE* ⚠️: The following example makes use of `global.gc()` to force garbage collection to run regardless of existing heuristics. This requires node to be run with the `--expose-gc` flag. This is not necessary except to demonstrate the behavior in a short script, where the garbage collector would not normally run until the program exits.
 
