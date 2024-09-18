@@ -133,4 +133,4 @@ export class WeakerSet
 	}
 };
 
-Object.defineProperty(WeakerMap, Symbol.species, WeakerMap);
+Object.defineProperty(WeakerSet, Symbol.species, {value: WeakerSet});

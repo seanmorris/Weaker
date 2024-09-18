@@ -1,7 +1,14 @@
 export class WeakerMap
 {
-	registry = new FinalizationRegistry(held => this.delete(held));
 	map = new Map;
+
+	registry = new FinalizationRegistry(key => {
+		if(this.map.has(key) && this.map.get(key).deref())
+		{
+			return;
+		}
+		this.delete(key);
+	});
 
 	constructor(entries)
 	{
@@ -75,7 +82,14 @@ export class WeakerMap
 			return;
 		}
 
-		return this.map.get(key).deref();
+		const value = this.map.get(key).deref();
+
+		if(!value)
+		{
+			this.map.delete(key);
+		}
+
+		return value;
 	}
 
 	has(key)
@@ -123,4 +137,4 @@ export class WeakerMap
 	}
 };
 
-Object.defineProperty(WeakerMap, Symbol.species, WeakerMap);
+Object.defineProperty(WeakerMap, Symbol.species, {value: WeakerMap});
