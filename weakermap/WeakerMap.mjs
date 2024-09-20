@@ -1,14 +1,25 @@
-export class WeakerMap
-{
-	map = new Map;
-
-	registry = new FinalizationRegistry(key => {
-		if(this.map.has(key) && this.map.get(key).deref())
+const getRegistry = weakerMap => {
+	const registry = new FinalizationRegistry(key => {
+		if(weakerMap.registry !== registry)
 		{
 			return;
 		}
-		this.delete(key);
+
+		if(weakerMap.map.has(key) && weakerMap.map.get(key).deref())
+		{
+			return;
+		}
+
+		weakerMap.delete(key);
 	});
+
+	return registry;
+};
+
+export class WeakerMap
+{
+	map = new Map;
+	registry = getRegistry(this);
 
 	constructor(entries)
 	{
@@ -22,11 +33,18 @@ export class WeakerMap
 
 	clear()
 	{
+		this.registry = getRegistry(this);
 		this.map.clear();
 	}
 
 	delete(key)
 	{
+		if(!this.has(key))
+		{
+			return;
+		}
+
+		this.registry.unregister(this.get(key));
 		this.map.delete(key);
 	}
 

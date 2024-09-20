@@ -1,6 +1,6 @@
 {
 	"name": "weakerset",
-	"version": "0.0.9",
+	"version": "0.0.10",
 	"author": "Sean Morris",
 	"description": "A WeakerSet an enumerable WeakSet",
 	"main": "WeakerSet.mjs",
