@@ -53,6 +53,7 @@ export class WeakerMap
 		const mapIterator = this.map[Symbol.iterator]();
 
 		return {
+			[Symbol.iterator]() { return this; },
 			next: () => {
 				do
 				{
@@ -129,7 +130,35 @@ export class WeakerMap
 
 	keys()
 	{
-		return [...this].map(v => v[0]);
+		const mapIterator = this.map[Symbol.iterator]();
+
+		return {
+			[Symbol.iterator]() { return this; },
+			next: () => {
+				do
+				{
+					const entry = mapIterator.next();
+
+					if(entry.done)
+					{
+						return {done:true};
+					}
+
+					const [key, ref] = entry.value;
+
+					const value = ref.deref();
+
+					if(!value)
+					{
+						this.map.delete(key);
+						continue;
+					}
+
+					return {done: false, value: key};
+
+				} while(true);
+			}
+		}
 	}
 
 	set(key, value)
@@ -139,7 +168,7 @@ export class WeakerMap
 			throw new Error('WeakerMap values must be objects.');
 		}
 
-		if(this.map.has(key))
+		if(this.has(key))
 		{
 			this.registry.unregister(this.get(key));
 		}
@@ -151,7 +180,40 @@ export class WeakerMap
 
 	values()
 	{
-		return [...this].map(v => v[1]);
+		const mapIterator = this.map[Symbol.iterator]();
+
+		return {
+			[Symbol.iterator]() { return this; },
+			next: () => {
+				do
+				{
+					const entry = mapIterator.next();
+
+					if(entry.done)
+					{
+						return {done:true};
+					}
+
+					const [key, ref] = entry.value;
+
+					const value = ref.deref();
+
+					if(!value)
+					{
+						this.map.delete(key);
+						continue;
+					}
+
+					return {done: false, value};
+
+				} while(true);
+			}
+		}
+	}
+
+	get [Symbol.toStringTag]()
+	{
+		return 'WeakerMap';
 	}
 };
 
