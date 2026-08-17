@@ -213,6 +213,7 @@ for(const key of ws.keys())
 // {c:3}
 
 ```
+
 ### WeakerSet.values()
 Traverse all values.
 
@@ -232,6 +233,145 @@ for(const value of ws.values())
 // {a:1}
 // {b:2}
 // {c:3}
+```
+
+### WeakerSet.difference(other)
+Compute the difference from `other`
+
+#### Parameters
+* `other` - A `Set`, `WeakerSet`, or `SetLike` object
+
+#### Returns
+`WeakerSet` comprising the difference
+
+```javascript
+const objs = [ {a:1}, {b:2}, {c:3} ];
+const ws = new WeakerSet(objs);
+const s = new Set([objs[0]]);
+
+for(const value of ws.difference(s))
+{
+    console.log(value);
+}
+// {b:2}
+// {c:3}
+```
+
+### WeakerSet.intersection(other)
+Compute the intersection with `other`
+
+#### Parameters
+* `other` - A `Set`, `WeakerSet`, or `SetLike` object
+
+#### Returns
+`WeakerSet` comprising the intersection
+
+```javascript
+const objs = [ {a:1}, {b:2}, {c:3} ];
+const ws = new WeakerSet([ objs[0], objs[1] ]);
+const s = new Set([ objs[1], objs[2] ]);
+
+for(const value of ws.intersection(s))
+{
+    console.log(value);
+}
+// {b:2}
+```
+
+### WeakerSet.symmetricDifference(other)
+Compute the symmetric difference with `other`
+
+#### Parameters
+* `other` - A `Set`, `WeakerSet`, or `SetLike` object
+
+#### Returns
+`WeakerSet` comprising the symmetric difference
+
+```javascript
+const objs = [ {a:1}, {b:2}, {c:3} ];
+const ws = new WeakerSet([ objs[0], objs[1] ]);
+const s = new Set([ objs[1], objs[2] ]);
+
+for(const value of ws.symmetricDifference(s))
+{
+    console.log(value);
+}
+// {a:1}
+// {c:3}
+```
+
+### WeakerSet.union(other)
+Compute the union with `other`
+
+#### Parameters
+* `other` - A `Set`, `WeakerSet`, or `SetLike` object
+
+#### Returns
+`WeakerSet` comprising the union
+
+```javascript
+const ws = new WeakerSet([ {a:1} ]);
+const s = new Set([ {b:2} ]);
+
+for(const value of ws.union(s))
+{
+    console.log(value);
+}
+// {a:1}
+// {b:2}
+```
+
+### WeakerSet.isDisjointFrom(other)
+Check if `this` is disjoint from `other`
+
+#### Parameters
+* `other` - A `Set`, `WeakerSet`, or `SetLike` object
+
+#### Returns
+`true` if the sets are disjoint, `false` if they are not.
+
+```javascript
+const ws = new WeakerSet([ {a:1} ]);
+const s = new Set([ {b:2} ]);
+
+console.log(ws.isDisjointFrom(s));
+// true
+```
+
+### WeakerSet.isSupersetOf(other)
+Check if `this` is a superset of `other`
+
+#### Parameters
+* `other` - A `Set`, `WeakerSet`, or `SetLike` object
+
+#### Returns
+`true` if `this` is a superset of `other`, `false` if it is not.
+
+```javascript
+const objs = [ {a:1}, {b:2}, {c:3} ];
+const ws = new WeakerSet(objs);
+const s = new Set([ objs[0] ]);
+
+console.log(ws.isSupersetOf(s));
+// true
+```
+
+### WeakerSet.isSubsetOf(other)
+Check if `this` is a subset of `other`
+
+#### Parameters
+* `other` - A `Set`, `WeakerSet`, or `SetLike` object
+
+#### Returns
+`true` if `this` is a subset of `other`, `false` if it is not.
+
+```javascript
+const objs = [ {a:1}, {b:2}, {c:3} ];
+const ws = new WeakerSet([ objs[0] ]);
+const s = new Set(objs);
+
+console.log(ws.isSubsetOf(s));
+// true
 ```
 
 ## Example
@@ -256,7 +396,7 @@ const retain  = [];
 const printRemaining = () => {
     retain;       // keep refs in-scope
     global.gc();  // force the garbage collector
-    console.log(ws.values());
+    console.log([...ws]);
 };
 
 printRemaining();

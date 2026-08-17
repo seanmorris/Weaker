@@ -293,7 +293,7 @@ const retain = []; // This will hold refs in-scope and prevent garbage collectio
 const printRemaining = () => {
     retain;       // keep some refs in this-scope as well.
     global.gc();  // force the garbage collector
-    console.log(wm.values());
+    console.log([...wm.values()])
 };
 
 printRemaining();
